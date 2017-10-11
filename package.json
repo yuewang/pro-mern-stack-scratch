@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/yuewang/pro-mern-stack-scratch/issues"
   },
-  "homepage": "https://github.com/yuewang/pro-mern-stack-scratch#readme"
+  "homepage": "https://github.com/yuewang/pro-mern-stack-scratch#readme",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
 }
