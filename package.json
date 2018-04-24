@@ -4,8 +4,10 @@
   "description": "MERN Tutorial",
   "main": "server.js",
   "scripts": {
-    "test": "test",
-    "start": "node server.js"
+    "test": "echo \"Error: not test specified\" && exit 1",
+    "start": "node server.js",
+    "compile": "babel src -presets react -out-dir static",
+    "watch": "babel src -presets react -out-dir static -watch"
   },
   "repository": {
     "type": "git",
