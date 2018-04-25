@@ -5,11 +5,12 @@
         <title>Pro MERN Stack </title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.13.0/polyfill.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script> // removed, no longer need to load babel-core, transform JSX into JS-->
     </head>
     <body>
         <div id="contents"></div> <!--parent div container-->
-        <!--<script type="text/babel" src="/App.jsx">-->
+        <!--<script type="text/babel" src="/App.jsx"> //removed --> 
         <script src="/App.js">
             //var contentNode = document.getElementById("contents");   //moved to App.jsx (Listing 2.3)
             //var component = <h1>Hello World!</h1>;
