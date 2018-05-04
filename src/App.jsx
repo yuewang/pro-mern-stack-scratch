@@ -1,13 +1,11 @@
-//var styles = {
-//    color:'red'
-//}
-
 const contentNode = document.getElementById('contents');
 
-const continents = ['Africa','Australia','North America', 'South America', 'Asia', 'Europe'];
-const message = continents.map(c => `Hello ${c}!`).join(' ');
+class IssueList extends React.Component {
+    render() {
+        return (
+            <div><div>This is a placeholder for the issue list.</div><div> this another placeholder tho</div></div>
+        );
+    }
+}
 
-const component = <p>{message}</p>; //JSX component
-
-//var component = <h1 style={styles}>Hello World</h1>;
-ReactDOM.render(component, contentNode);
+ReactDOM.render(<IssueList />, contentNode);
