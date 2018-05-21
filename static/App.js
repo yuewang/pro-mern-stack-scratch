@@ -157,6 +157,7 @@ var IssueTable = function (_React$Component3) {
                 React.createElement(
                     'table',
                     { className: 'bordered-table' },
+                    ' ',
                     React.createElement(
                         'thead',
                         null,

@@ -91,7 +91,6 @@ class IssueTable extends React.Component {
                         {/*Removed 3-7 for more detailed table
                         <th style={borderedStyle}>Id</th>
                         <th style={borderedStyle}>Title</th>*/}
-
                         <th>Id</th>
                         <th>Status</th>
                         <th>Owner</th>
@@ -99,7 +98,6 @@ class IssueTable extends React.Component {
                         <th>Effort</th>
                         <th>Completion Date</th>
                         <th>Title</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -117,6 +115,10 @@ class IssueTable extends React.Component {
                     */}
 
                     {/*3-7 Array of IssueRows*/}
+                    {/*3-3-5 Exercise: Dynamic Composition - running map function directly in tbody - works because jsx runs through transform as well
+                    NOTE: Error in browser console: #text cannot be child of <table>
+                    this.props.issues.map(issue=><IssueRow key={issue.id}issue={issue}/>)*/}
+                    
                     {issueRows}
 
                 </tbody> 
@@ -134,6 +136,11 @@ class IssueAdd extends React.Component {
 }
 
 class IssueList extends React.Component {
+    constructor() {
+        super();
+        this.state = {issues: issues};
+        setTimeOut(this.createTestIssue.bind(this), 2000);
+    }
     render() {
         return (
             <div>
