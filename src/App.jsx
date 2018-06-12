@@ -44,7 +44,7 @@ class IssueRow extends React.Component {
         //3-8 IssueRow using Issue Object Prop
         const issue = this.props.issue;
         //const borderedStyle = {border: "1px solid silver", padding: 4};
-
+        console.log('blah blah blah');
         return (
         <tr>
             {/*3-8 Replaced with more detailed row
@@ -138,18 +138,50 @@ class IssueAdd extends React.Component {
 class IssueList extends React.Component {
     constructor() {
         super();
-        this.state = {issues: issues};
-        setTimeOut(this.createTestIssue.bind(this), 2000);
+        this.state = {issues: []}; //4-2 initialized to empty array instead of const
+
+        this.createTestIssue = this.createTestIssue.bind(this);
+        setTimeout(this.createTestIssue, 2000);
     }
+
+    //4-2 Simulation of data loading from server
+
+    //4-2 componentDidMount is React Lifecycle method
+    componentDidMount() {  
+        this.loadData();
+    }
+
+    //4-2 loadData should not be called in constructor because the load may finish before component is rendered. setState should not be called until component is rendered.
+    loadData() {
+        //4-2 simulate async data 
+        setTimeout(() => {
+            this.setState({ issues: issues});
+        }, 500);
+    }
+
+    createIssue(newIssue) {
+        const newIssues = this.state.issues.slice();
+        newIssue.id = this.state.issues.length+1;
+        newIssues.push(newIssue);
+        this.setState({ issues: newIssues });
+    }
+
+    createTestIssue() {
+        this.createIssue({
+            status: 'New', owner: 'Pieta', created: new Date(),
+            title: 'Completion date should be optional'
+        })
+    }
+
     render() {
         return (
             <div>
                 <h1>Issue Tracker</h1>
-                
                 <IssueFilter />
                 <hr />
                 {/*demo of array usage */}
-                <IssueTable issues={issues} />
+                <IssueTable issues={this.state.issues} />
+                <button onClick={this.createTestIssue}>Add</button> {/*4-2 Button to call createTestIssue*/}
                 <hr />
                 <IssueAdd />
             </div>
