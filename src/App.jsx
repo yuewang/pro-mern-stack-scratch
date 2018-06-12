@@ -22,6 +22,41 @@ const issues = [
     }
 ];
 
+const IssueRow = (props) => (
+    <tr>
+        <td>{props.issue.id}</td>
+        <td>{props.issue.status}</td>
+        <td>{props.issue.owner}</td>
+        <td>{props.issue.created.toDateString()}</td>
+        <td>{props.issue.effort}</td>
+        <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td>
+        <td>{props.issue.title}</td>
+    </tr>
+)
+
+function IssueTable(props) {
+    const issueRows = props.issues.map(issue => <IssueRow key={issue.id} issue={issue}/>)
+    
+    return (
+        <table className="bordered-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Status</th>
+                <th>Owner</th>
+                <th>Created</th>
+                <th>Effort</th>
+                <th>Completion Date</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>    
+            {issueRows}
+        </tbody> 
+    </table>
+    );
+}
+
 class IssueFilter extends React.Component {
     render() {
         return (
@@ -30,102 +65,7 @@ class IssueFilter extends React.Component {
     }
 }
 
-class IssueRow extends React.Component {
 
-    //demo of static getter function to establish proptypes on class creation
-    /*static get propTypes() {
-        return {
-            issue_id: React.PropTypes.number.isRequired,
-            issue_title: React.PropTypes.string
-        };
-    } */
-
-    render() {
-        //3-8 IssueRow using Issue Object Prop
-        const issue = this.props.issue;
-        //const borderedStyle = {border: "1px solid silver", padding: 4};
-        //console.log('blah blah blah');
-        return (
-        <tr>
-            {/*3-8 Replaced with more detailed row
-            <td style={borderedStyle}>{this.props.issue_id}</td> //using properties
-            <td style={borderedStyle}>{this.props.children}</td> //using children
-            */}
-
-            {/*3-8 IssueRow using Issue Object Prop*/}
-            <td>{issue.id}</td>
-            <td>{issue.status}</td>
-            <td>{issue.owner}</td>
-            <td>{issue.created.toDateString()}</td>
-            <td>{issue.effort}</td>
-            <td>{issue.completionDate ? issue.completionDate.toDateString() : ''}</td>
-            <td>{issue.title}</td>
-
-        </tr>
-        );
-    }
-}
-
-/*class BorderWrap extends React.Component {
-    //Example of wrapper to apply style (border) outside of inner component
-    render() {
-        const borderedStyle = {border: "1px solid silver", padding: 6};
-        return (
-            <div style={borderedStyle}>
-                {this.props.children}
-            </div>
-        );
-    }
-}*/
-
-class IssueTable extends React.Component {
-    render() {
-        //3-7 Passing array of issues as property, using map function to map each issue in array to IssueRow
-        const issueRows = this.props.issues.map(issue => <IssueRow key={issue.id} issue={issue} />)
-        //const borderedStyle = {border: "1px solid silver", padding: 6};
-        return (
-            //<table style={{borderCollapse: "collapse", border: 1}}>
-            <table className="bordered-table"> {/*3-9 using JSX className for CSS class*/}
-                <thead>
-                    <tr>
-                        {/*Removed 3-7 for more detailed table
-                        <th style={borderedStyle}>Id</th>
-                        <th style={borderedStyle}>Title</th>*/}
-                        <th>Id</th>
-                        <th>Status</th>
-                        <th>Owner</th>
-                        <th>Created</th>
-                        <th>Effort</th>
-                        <th>Completion Date</th>
-                        <th>Title</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {/*3-3 Using properties to pass both inputs
-                    <IssueRow issue_id={1}
-                    issue_title="Error in console when clicking Add" />
-
-                    <IssueRow issue_id={2}
-                    issue_title="Missing bottom border on panel" />
-                    */}
-
-                    {/*3-4 Using properties to pass id and 'child' (content inside tags) to pass content
-                    <IssueRow issue_id={1}>Error in console when clicking Add</IssueRow>
-                    <IssueRow issue_id={2}>Missing bottom <b>border</b> on panel</IssueRow>
-                    */}
-
-                    {/*3-7 Array of IssueRows*/}
-                    {/*3-3-5 Exercise: Dynamic Composition - running map function directly in tbody - works because jsx runs through transform as well
-                    NOTE: Error in browser console: #text cannot be child of <table>
-                    this.props.issues.map(issue=><IssueRow key={issue.id}issue={issue}/>)*/}
-                    
-                    {issueRows}
-
-                </tbody> 
-            </table>
-        );
-    }
-}
 
 class IssueAdd extends React.Component {
     constructor() {
@@ -193,14 +133,6 @@ class IssueList extends React.Component {
         this.setState({ issues: newIssues });
     }
 
-    //4-4 Replaced Test Issue hard code with form
-    /*createTestIssue() {
-        this.createIssue({
-            status: 'New', owner: 'Pieta', created: new Date(),
-            title: 'Completion date should be optional'
-        })
-    }*/
-
     render() {
         return (
             <div>
@@ -218,3 +150,4 @@ class IssueList extends React.Component {
 }
 
 ReactDOM.render(<IssueList />, contentNode);
+

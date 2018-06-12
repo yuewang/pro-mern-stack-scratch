@@ -29,6 +29,107 @@ var issues = [{
     title: 'Missing bottom border on panel'
 }];
 
+var IssueRow = function IssueRow(props) {
+    return React.createElement(
+        'tr',
+        null,
+        React.createElement(
+            'td',
+            null,
+            props.issue.id
+        ),
+        React.createElement(
+            'td',
+            null,
+            props.issue.status
+        ),
+        React.createElement(
+            'td',
+            null,
+            props.issue.owner
+        ),
+        React.createElement(
+            'td',
+            null,
+            props.issue.created.toDateString()
+        ),
+        React.createElement(
+            'td',
+            null,
+            props.issue.effort
+        ),
+        React.createElement(
+            'td',
+            null,
+            props.issue.completionDate ? props.issue.completionDate.toDateString() : ''
+        ),
+        React.createElement(
+            'td',
+            null,
+            props.issue.title
+        )
+    );
+};
+
+function IssueTable(props) {
+    var issueRows = props.issues.map(function (issue) {
+        return React.createElement(IssueRow, { key: issue.id, issue: issue });
+    });
+
+    return React.createElement(
+        'table',
+        { className: 'bordered-table' },
+        React.createElement(
+            'thead',
+            null,
+            React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                    'th',
+                    null,
+                    'Id'
+                ),
+                React.createElement(
+                    'th',
+                    null,
+                    'Status'
+                ),
+                React.createElement(
+                    'th',
+                    null,
+                    'Owner'
+                ),
+                React.createElement(
+                    'th',
+                    null,
+                    'Created'
+                ),
+                React.createElement(
+                    'th',
+                    null,
+                    'Effort'
+                ),
+                React.createElement(
+                    'th',
+                    null,
+                    'Completion Date'
+                ),
+                React.createElement(
+                    'th',
+                    null,
+                    'Title'
+                )
+            )
+        ),
+        React.createElement(
+            'tbody',
+            null,
+            issueRows
+        )
+    );
+}
+
 var IssueFilter = function (_React$Component) {
     _inherits(IssueFilter, _React$Component);
 
@@ -52,178 +153,16 @@ var IssueFilter = function (_React$Component) {
     return IssueFilter;
 }(React.Component);
 
-var IssueRow = function (_React$Component2) {
-    _inherits(IssueRow, _React$Component2);
-
-    function IssueRow() {
-        _classCallCheck(this, IssueRow);
-
-        return _possibleConstructorReturn(this, (IssueRow.__proto__ || Object.getPrototypeOf(IssueRow)).apply(this, arguments));
-    }
-
-    _createClass(IssueRow, [{
-        key: 'render',
-
-
-        //demo of static getter function to establish proptypes on class creation
-        /*static get propTypes() {
-            return {
-                issue_id: React.PropTypes.number.isRequired,
-                issue_title: React.PropTypes.string
-            };
-        } */
-
-        value: function render() {
-            //3-8 IssueRow using Issue Object Prop
-            var issue = this.props.issue;
-            //const borderedStyle = {border: "1px solid silver", padding: 4};
-            console.log('blah blah blah');
-            return React.createElement(
-                'tr',
-                null,
-                React.createElement(
-                    'td',
-                    null,
-                    issue.id
-                ),
-                React.createElement(
-                    'td',
-                    null,
-                    issue.status
-                ),
-                React.createElement(
-                    'td',
-                    null,
-                    issue.owner
-                ),
-                React.createElement(
-                    'td',
-                    null,
-                    issue.created.toDateString()
-                ),
-                React.createElement(
-                    'td',
-                    null,
-                    issue.effort
-                ),
-                React.createElement(
-                    'td',
-                    null,
-                    issue.completionDate ? issue.completionDate.toDateString() : ''
-                ),
-                React.createElement(
-                    'td',
-                    null,
-                    issue.title
-                )
-            );
-        }
-    }]);
-
-    return IssueRow;
-}(React.Component);
-
-/*class BorderWrap extends React.Component {
-    //Example of wrapper to apply style (border) outside of inner component
-    render() {
-        const borderedStyle = {border: "1px solid silver", padding: 6};
-        return (
-            <div style={borderedStyle}>
-                {this.props.children}
-            </div>
-        );
-    }
-}*/
-
-var IssueTable = function (_React$Component3) {
-    _inherits(IssueTable, _React$Component3);
-
-    function IssueTable() {
-        _classCallCheck(this, IssueTable);
-
-        return _possibleConstructorReturn(this, (IssueTable.__proto__ || Object.getPrototypeOf(IssueTable)).apply(this, arguments));
-    }
-
-    _createClass(IssueTable, [{
-        key: 'render',
-        value: function render() {
-            //3-7 Passing array of issues as property, using map function to map each issue in array to IssueRow
-            var issueRows = this.props.issues.map(function (issue) {
-                return React.createElement(IssueRow, { key: issue.id, issue: issue });
-            });
-            //const borderedStyle = {border: "1px solid silver", padding: 6};
-            return (
-                //<table style={{borderCollapse: "collapse", border: 1}}>
-                React.createElement(
-                    'table',
-                    { className: 'bordered-table' },
-                    ' ',
-                    React.createElement(
-                        'thead',
-                        null,
-                        React.createElement(
-                            'tr',
-                            null,
-                            React.createElement(
-                                'th',
-                                null,
-                                'Id'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Status'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Owner'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Created'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Effort'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Completion Date'
-                            ),
-                            React.createElement(
-                                'th',
-                                null,
-                                'Title'
-                            )
-                        )
-                    ),
-                    React.createElement(
-                        'tbody',
-                        null,
-                        issueRows
-                    )
-                )
-            );
-        }
-    }]);
-
-    return IssueTable;
-}(React.Component);
-
-var IssueAdd = function (_React$Component4) {
-    _inherits(IssueAdd, _React$Component4);
+var IssueAdd = function (_React$Component2) {
+    _inherits(IssueAdd, _React$Component2);
 
     function IssueAdd() {
         _classCallCheck(this, IssueAdd);
 
-        var _this4 = _possibleConstructorReturn(this, (IssueAdd.__proto__ || Object.getPrototypeOf(IssueAdd)).call(this));
+        var _this2 = _possibleConstructorReturn(this, (IssueAdd.__proto__ || Object.getPrototypeOf(IssueAdd)).call(this));
 
-        _this4.handleSubmit = _this4.handleSubmit.bind(_this4);
-        return _this4;
+        _this2.handleSubmit = _this2.handleSubmit.bind(_this2);
+        return _this2;
     }
 
     _createClass(IssueAdd, [{
@@ -265,21 +204,21 @@ var IssueAdd = function (_React$Component4) {
     return IssueAdd;
 }(React.Component);
 
-var IssueList = function (_React$Component5) {
-    _inherits(IssueList, _React$Component5);
+var IssueList = function (_React$Component3) {
+    _inherits(IssueList, _React$Component3);
 
     function IssueList() {
         _classCallCheck(this, IssueList);
 
-        var _this5 = _possibleConstructorReturn(this, (IssueList.__proto__ || Object.getPrototypeOf(IssueList)).call(this));
+        var _this3 = _possibleConstructorReturn(this, (IssueList.__proto__ || Object.getPrototypeOf(IssueList)).call(this));
 
-        _this5.state = { issues: [] }; //4-2 initialized to empty array instead of const
+        _this3.state = { issues: [] }; //4-2 initialized to empty array instead of const
 
         //4-4 Replace Test Issue hardcode with form
         /*this.createTestIssue = this.createTestIssue.bind(this);
         setTimeout(this.createTestIssue, 2000);*/
-        _this5.createIssue = _this5.createIssue.bind(_this5);
-        return _this5;
+        _this3.createIssue = _this3.createIssue.bind(_this3);
+        return _this3;
     }
 
     //4-2 Simulation of data loading from server
@@ -298,11 +237,11 @@ var IssueList = function (_React$Component5) {
     }, {
         key: 'loadData',
         value: function loadData() {
-            var _this6 = this;
+            var _this4 = this;
 
             //4-2 simulate async data 
             setTimeout(function () {
-                _this6.setState({ issues: issues });
+                _this4.setState({ issues: issues });
             }, 500);
         }
     }, {
@@ -313,15 +252,6 @@ var IssueList = function (_React$Component5) {
             newIssues.push(newIssue);
             this.setState({ issues: newIssues });
         }
-
-        //4-4 Replaced Test Issue hard code with form
-        /*createTestIssue() {
-            this.createIssue({
-                status: 'New', owner: 'Pieta', created: new Date(),
-                title: 'Completion date should be optional'
-            })
-        }*/
-
     }, {
         key: 'render',
         value: function render() {
