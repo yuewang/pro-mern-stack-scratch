@@ -44,7 +44,7 @@ class IssueRow extends React.Component {
         //3-8 IssueRow using Issue Object Prop
         const issue = this.props.issue;
         //const borderedStyle = {border: "1px solid silver", padding: 4};
-        console.log('blah blah blah');
+        //console.log('blah blah blah');
         return (
         <tr>
             {/*3-8 Replaced with more detailed row
@@ -128,9 +128,34 @@ class IssueTable extends React.Component {
 }
 
 class IssueAdd extends React.Component {
+    constructor() {
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        var form = document.forms.issueAdd;
+        this.props.createIssue({
+            owner: form.owner.value,
+            title: form.title.value,
+            status: 'New',
+            created: new Date()
+        })
+        // clear form for next input
+        form.owner.value = ""; 
+        form.title.value = "";
+    }
+
     render() {
         return (
-            <div>This is a placeholder for issue add entry form.</div>
+            <div>
+                <form name="issueAdd" onSubmit={this.handleSubmit}>
+                    <input type="text" name="owner" placeholder="Owner" />
+                    <input type="text" name="title" placeholder="Title" />
+                    <button>Add</button>
+                </form>
+            </div>
         );
     }
 }
@@ -140,8 +165,10 @@ class IssueList extends React.Component {
         super();
         this.state = {issues: []}; //4-2 initialized to empty array instead of const
 
-        this.createTestIssue = this.createTestIssue.bind(this);
-        setTimeout(this.createTestIssue, 2000);
+        //4-4 Replace Test Issue hardcode with form
+        /*this.createTestIssue = this.createTestIssue.bind(this);
+        setTimeout(this.createTestIssue, 2000);*/
+        this.createIssue = this.createIssue.bind(this);
     }
 
     //4-2 Simulation of data loading from server
@@ -166,12 +193,13 @@ class IssueList extends React.Component {
         this.setState({ issues: newIssues });
     }
 
-    createTestIssue() {
+    //4-4 Replaced Test Issue hard code with form
+    /*createTestIssue() {
         this.createIssue({
             status: 'New', owner: 'Pieta', created: new Date(),
             title: 'Completion date should be optional'
         })
-    }
+    }*/
 
     render() {
         return (
@@ -181,9 +209,9 @@ class IssueList extends React.Component {
                 <hr />
                 {/*demo of array usage */}
                 <IssueTable issues={this.state.issues} />
-                <button onClick={this.createTestIssue}>Add</button> {/*4-2 Button to call createTestIssue*/}
+                {/*<button onClick={this.createTestIssue}>Add</button> //4-2 Button to call createTestIssue*/}
                 <hr />
-                <IssueAdd />
+                <IssueAdd createIssue={this.createIssue}/>
             </div>
         );
     }
