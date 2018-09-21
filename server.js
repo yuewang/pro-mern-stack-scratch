@@ -37,14 +37,14 @@ function validateIssue(issue){
             delete issue[field];
         } else if (type === 'required' && !issue[field]) {
             console.log("missing required field");
-            return '${field} is required.';
+            return `${field} is required.`;
         }
     }
 
-    if (!validIssueStatus[issue.status])
+    if (!validIssueStatus[issue.status]) {
         console.log("invalid issue!");
-        return '${issue.status is not a valid status.';
-
+        return `${issue.status} is not a valid status.`;
+    }
     return null;
 }
 
