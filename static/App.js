@@ -19,7 +19,7 @@ var IssueRow = function IssueRow(props) {
         React.createElement(
             'td',
             null,
-            props.issue.id
+            props.issue._id
         ),
         React.createElement(
             'td',
@@ -56,7 +56,7 @@ var IssueRow = function IssueRow(props) {
 
 function IssueTable(props) {
     var issueRows = props.issues.map(function (issue) {
-        return React.createElement(IssueRow, { key: issue.id, issue: issue });
+        return React.createElement(IssueRow, { key: issue._id, issue: issue });
     });
 
     return React.createElement(
@@ -222,23 +222,37 @@ var IssueList = function (_React$Component3) {
         value: function loadData() {
             var _this4 = this;
 
-            //4-2 simulate async data 
-            /*setTimeout(() => {
-                this.setState({ issues: issues});
-            }, 500);*/
-
             //5-4 use API to fetch data
-            fetch('api/issues').then(function (response) {
-                return response.json();
-            }).then(function (data) {
+            /*fetch('api/issues').then(response => 
+                response.json()
+            ).then(data => {
                 console.log("Total count of records: ", data._metadata.total_count);
-                data.records.forEach(function (issue) {
+                data.records.forEach(issue => {
                     issue.created = new Date(issue.created);
-                    if (issue.completionDate) issue.completionDate = new Date(issue.completionDate);
+                    if(issue.completionDate)
+                        issue.completionDate = new Date(issue.completionDate);
                 });
-                _this4.setState({ issues: data.records });
-            }).catch(function (err) {
+                this.setState({ issues: data.records });
+            }).catch(err => {
                 console.log(err);
+            });*/
+
+            //6-10 Use API to fetch data using MongoDB
+            fetch('api/issues').then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (data) {
+                        console.log("Total count of records:", data._metadata.total_count);
+                        data.records.forEach(function (issue) {
+                            issue.created = new Date(issue.created);
+                            if (issue.completionDate) issue.completionDate = new Date(issue.completionDate);
+                        });
+                        _this4.setState({ issues: data.records });
+                    });
+                } else {
+                    response.json().then(function (error) {
+                        alert("Failed to fetch issues:" + error.message);
+                    });
+                }
             });
         }
     }, {
