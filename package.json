@@ -2,6 +2,7 @@
   "name": "pro-mern-stack-scratch",
   "version": "0.0.1",
   "description": "MERN Tutorial",
+  "private": true,
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: not test specified\" && exit 1",
